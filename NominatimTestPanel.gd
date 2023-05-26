@@ -72,7 +72,7 @@ func _process(delta):
 	_update_query_url()
 	query_url_value_label.text = _query_url
 	if (auto_query and _query_url != _last_query_url) or trigger_query:
-		pass
+		do_query()
 	trigger_query = false
 
 func _on_query_button_pressed():
