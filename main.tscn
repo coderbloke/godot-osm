@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3]
+[gd_scene load_steps=41 format=3 uid="uid://cklsyepdikct8"]
 
 [ext_resource type="Script" path="res://src/OSMDisplay.gd" id="1_1m6da"]
 [ext_resource type="Theme" uid="uid://4gayavc1jms4" path="res://theme.tres" id="1_xkhht"]
@@ -19,8 +19,7 @@
 [ext_resource type="Script" path="res://src/nominatim/NominatimQueryParameters.gd" id="15_6bu3n"]
 [ext_resource type="Texture2D" uid="uid://d05eiwryxhtux" path="res://res/stars-g8b91bcb9a_1920.jpg" id="16_4tin0"]
 [ext_resource type="Texture2D" uid="uid://vor063ftvf7c" path="res://res/osm_world_1024.png" id="17_ungu2"]
-[ext_resource type="Resource" path="res://_quarantine/test/osm_data_04.tres" id="19_xkbb2"]
-
+[ext_resource type="Resource" uid="uid://ep0dxe3ij0ch" path="res://_quarantine/test/osm_data_04.tres" id="19_xkbb2"]
 
 [sub_resource type="Resource" id="Resource_3sfqr"]
 script = ExtResource("4_0yr16")
@@ -58,12 +57,12 @@ script = ExtResource("10_1teh6")
 lat_raw = PackedByteArray(3, 0, 0, 0, 0, 0, 0, 0)
 lon_raw = PackedByteArray(3, 0, 0, 0, 0, 0, 0, 0)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_k1p4v"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qtxhc"]
 
 [sub_resource type="Resource" id="Resource_cbf8e"]
 script = ExtResource("10_1teh6")
-lat_raw = PackedByteArray(3, 0, 1, 0, 156, 196, 32, 176, 114, 240, 71, 64)
-lon_raw = PackedByteArray(3, 0, 1, 0, 222, 113, 138, 142, 228, 98, 52, 64)
+lat_raw = PackedByteArray(3, 0, 1, 0, 224, 233, 149, 178, 12, 241, 71, 64)
+lon_raw = PackedByteArray(3, 0, 1, 0, 120, 156, 162, 35, 185, 108, 52, 64)
 
 [sub_resource type="Resource" id="Resource_wkuyg"]
 script = ExtResource("15_6bu3n")
@@ -204,12 +203,12 @@ theme = ExtResource("1_xkhht")
 script = ExtResource("2_hflfm")
 
 [node name="Overpass" parent="." instance=ExtResource("6_pfqb4")]
+visible = false
 layout_mode = 2
 overpass_query_builder = SubResource("Resource_3sfqr")
 overpass_query = SubResource("Resource_hm5jq")
 
 [node name="Slippy map" type="VBoxContainer" parent="."]
-visible = false
 clip_contents = true
 layout_mode = 2
 
@@ -221,6 +220,9 @@ tile_manager = NodePath("../../OSMTileManager")
 geo_center = SubResource("Resource_1y384")
 zoom = 3.0
 gizmo_option_boundary_higlight = 2
+gizmo_color_center = Color(0.184314, 0.309804, 0.309804, 1)
+gizmo_color_cursor = Color(0.282353, 0.239216, 0.545098, 1)
+gizmo_color_boundary_higlight = Color(0.647059, 0.164706, 0.164706, 1)
 loading_texture = ExtResource("11_y0d32")
 
 [node name="NominatimSearchWindow" type="Window" parent="Slippy map"]
@@ -228,12 +230,11 @@ transparent_bg = true
 title = "Search"
 position = Vector2i(100, 100)
 size = Vector2i(300, 300)
-visible = false
 transient = true
 transparent = true
 theme_type_variation = &"SearchWindow"
-theme_override_icons/close = SubResource("PlaceholderTexture2D_k1p4v")
-theme_override_icons/close_pressed = SubResource("PlaceholderTexture2D_k1p4v")
+theme_override_icons/close = SubResource("PlaceholderTexture2D_qtxhc")
+theme_override_icons/close_pressed = SubResource("PlaceholderTexture2D_qtxhc")
 script = ExtResource("4_5xg47")
 close_button_visible = false
 
@@ -253,7 +254,6 @@ mouse_filter = 0
 visible = false
 layout_mode = 2
 nominatim_query = SubResource("Resource_wkuyg")
-auto_query = false
 
 [node name="Globe" type="VBoxContainer" parent="."]
 visible = false
@@ -321,3 +321,5 @@ cache_path = "C:/_coding/osm_tile_cache"
 script = ExtResource("5_007cy")
 base_url = "http://a.tile.stamen.com/toner"
 cache_path = "C:/_coding/osm_tile_cache_toner"
+
+[connection signal="result_pressed" from="Slippy map/NominatimSearchWindow/NominatimSearchPanel" to="." method="_on_nominatim_result_pressed"]
