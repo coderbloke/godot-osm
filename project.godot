@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="OSM"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.0", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+DebugInfo="*res://addons/debug_info_plugin/DebugInfoManager.gd"
+
+[editor]
+
+movie_writer/movie_file="C:/_coding/godot/movies/osm.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/external_plugins/plugin_refresher/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/debug_info_plugin/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="mobile"

@@ -1,0 +1,382 @@
+{
+	"categories": [
+		{
+			"uuid": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"title": "OSM",
+			"color": "70bafa"
+		},
+		{
+			"uuid": "79586059-faf8-4970-9f48-204513322815",
+			"title": "Kanban Tasks",
+			"color": "fafad2"
+		},
+		{
+			"uuid": "54f2102a-464d-4618-8965-b3e6b55d707d",
+			"title": "Debug Info",
+			"color": "ca89bc"
+		},
+		{
+			"uuid": "888cf0b3-56bb-45ba-8b40-46f29833c0e0",
+			"title": "Todo Manager",
+			"color": "fafad2"
+		},
+		{
+			"uuid": "798b954a-01af-4681-8387-a0c4b0c6a863",
+			"title": "Plugin Manager",
+			"color": "fafbd2"
+		},
+		{
+			"uuid": "1c46e69e-309a-4656-b628-b16d0e95408c",
+			"title": "Refresh Plugin",
+			"color": "fafbd2"
+		},
+		{
+			"uuid": "41f59588-4f59-48f6-913d-ce27fcbc45d4",
+			"title": "Reusable",
+			"color": "a4ffaf"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "a155508a-bc96-4d79-b105-4b4cc844fb45",
+			"title": "Todo",
+			"tasks": [
+				"df115383-502e-416e-8c24-f01816f59c95",
+				"757e42f8-5914-445f-9ce9-ee8b380b5c0a",
+				"b3891ab0-bada-4132-8c6a-69a89d0b03f4",
+				"bec00285-9ff0-4904-8eee-bc6c13938848",
+				"29e25ee9-f7e0-4bae-b409-73d50572d053",
+				"1123094d-3088-4145-8f8b-03093fa4dbe1",
+				"8a49d147-2025-496c-a4ad-50560ffad588"
+			]
+		},
+		{
+			"uuid": "1aaddad7-6783-44e6-a0f6-3856c1e90460",
+			"title": "Doing",
+			"tasks": [
+				"ff1c1a43-86da-450c-9504-71f4bd09d277"
+			]
+		},
+		{
+			"uuid": "04334c63-62e5-4015-84e8-4844f6fbaa5f",
+			"title": "Done",
+			"tasks": []
+		},
+		{
+			"uuid": "6b4b1b49-b54b-4167-96b7-80d13e5455bc",
+			"title": "New Stage",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "df115383-502e-416e-8c24-f01816f59c95",
+			"title": "File cache",
+			"description": "Requester can ask for a FileAccess to a file by id. If not in the cache, it can request it. Cache manager indicates, if file is available.",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Make structure (Resource) for file list, last update time, last access time",
+					"done": false
+				},
+				{
+					"details": "Update file list, when something is NOK + with given cycle",
+					"done": false
+				},
+				{
+					"details": "Different file id from requester and how it is stored on hard drive",
+					"done": false
+				},
+				{
+					"details": "Refactor existing OSMTileManager to use new file cache",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "0dece5c0-46e9-4a36-ae92-23061d3f9200",
+			"title": "Category on board",
+			"description": "",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Add to task cards",
+					"done": true
+				},
+				{
+					"details": "Reusable category menu",
+					"done": true
+				},
+				{
+					"details": "Add option to settings",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "96f64e65-45d5-42d2-8974-bdca6d2ea2a8",
+			"title": "Optimize resource change triggerings",
+			"description": "",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Search them",
+					"done": false
+				},
+				{
+					"details": "Settings trigger option to turn off signal ",
+					"done": true
+				},
+				{
+					"details": "Disable setting signal during general settings apply",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "475c0957-99d0-4ab7-a822-4f31ca22779a",
+			"title": "Focus on board",
+			"description": "Category and steps should not get focus on board",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": []
+		},
+		{
+			"uuid": "bec00285-9ff0-4904-8eee-bc6c13938848",
+			"title": "Slot drag & drop and presistence",
+			"description": "",
+			"category": "54f2102a-464d-4618-8965-b3e6b55d707d",
+			"steps": [
+				{
+					"details": "Drag & drop",
+					"done": false
+				},
+				{
+					"details": "ID title",
+					"done": false
+				},
+				{
+					"details": "Remove button",
+					"done": false
+				},
+				{
+					"details": "Persistence of order",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "d315508d-4b36-443c-b5e4-90277b923796",
+			"title": "Openpass",
+			"description": "",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": []
+		},
+		{
+			"uuid": "c0858628-c784-48c8-ac09-6729682f9eb6",
+			"title": "Search in category",
+			"description": "Extension can be done in task.gd / __apply_filter()",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": []
+		},
+		{
+			"uuid": "faabf4cc-913f-4aac-a59f-cfa355972679",
+			"title": "Possibility to create new board",
+			"description": "Currently in setting only loading and saving possible",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": []
+		},
+		{
+			"uuid": "b83c59bb-269e-4a31-88ea-2ba89fe90828",
+			"title": "Enhancements",
+			"description": "",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Pattern and color in one tag property control",
+					"done": false
+				},
+				{
+					"details": "Tab for selected folder",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "5f5290c2-509a-497b-a287-0cc7aebe43c2",
+			"title": "Enhancements",
+			"description": "",
+			"category": "798b954a-01af-4681-8387-a0c4b0c6a863",
+			"steps": [
+				{
+					"details": "Compact view",
+					"done": false
+				},
+				{
+					"details": "Filter self",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "b3891ab0-bada-4132-8c6a-69a89d0b03f4",
+			"title": "Bugfix",
+			"description": "",
+			"category": "79586059-faf8-4970-9f48-204513322815",
+			"steps": [
+				{
+					"details": "Removing categories",
+					"done": false
+				},
+				{
+					"details": "Task: Listening to color change of category",
+					"done": false
+				},
+				{
+					"details": "Focus, drag&drop loss in details if a step is edited",
+					"done": false
+				},
+				{
+					"details": "Make preload path relative",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "29e25ee9-f7e0-4bae-b409-73d50572d053",
+			"title": "Setup",
+			"description": "",
+			"category": "41f59588-4f59-48f6-913d-ce27fcbc45d4",
+			"steps": [
+				{
+					"details": "Find a good name",
+					"done": false
+				},
+				{
+					"details": "Make repo",
+					"done": false
+				},
+				{
+					"details": "Add already made reusable classes",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "1123094d-3088-4145-8f8b-03093fa4dbe1",
+			"title": "Dependency management",
+			"description": "",
+			"category": "41f59588-4f59-48f6-913d-ce27fcbc45d4",
+			"steps": [
+				{
+					"details": "Search for already existing solution, which are not tied top on specific language",
+					"done": false
+				},
+				{
+					"details": "Make one for Godot, using already exitsing or make one similar",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "757e42f8-5914-445f-9ce9-ee8b380b5c0a",
+			"title": "Tile loading",
+			"description": "",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Rect within texture (needed for fallback textures)",
+					"done": false
+				},
+				{
+					"details": "Fallback texture until requested is not available",
+					"done": false
+				},
+				{
+					"details": "Update fallback texture, if a better is available meanwhile",
+					"done": false
+				},
+				{
+					"details": "Request a low res tile first, which coeveres the whole view",
+					"done": false
+				},
+				{
+					"details": "Request tiles starting from the center",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "ff1c1a43-86da-450c-9504-71f4bd09d277",
+			"title": "Overpass query builder",
+			"description": "https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL",
+			"category": "0c7e54b7-6bff-481a-855e-da8d0bd775cf",
+			"steps": [
+				{
+					"details": "Date settings (2.5, 2.6, 2.7)",
+					"done": false
+				},
+				{
+					"details": "Block statements (3)",
+					"done": false
+				},
+				{
+					"details": "Standalone statements (4)",
+					"done": false
+				},
+				{
+					"details": "Filters (5)",
+					"done": false
+				},
+				{
+					"details": "Filter / By input set (5.4)\n",
+					"done": true
+				},
+				{
+					"details": "Evaluators (6)",
+					"done": false
+				},
+				{
+					"details": "Special syntax (7)",
+					"done": false
+				},
+				{
+					"details": "Misc features (8)",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "8a49d147-2025-496c-a4ad-50560ffad588",
+			"title": "ExtendedHTTPClient",
+			"description": "",
+			"category": "41f59588-4f59-48f6-913d-ce27fcbc45d4",
+			"steps": [
+				{
+					"details": "Remake HTTPRequest in GDScript",
+					"done": false
+				},
+				{
+					"details": "Add possibility to keep connection",
+					"done": false
+				},
+				{
+					"details": "Helper function for query building",
+					"done": false
+				}
+			]
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"a155508a-bc96-4d79-b105-4b4cc844fb45"
+			],
+			[
+				"1aaddad7-6783-44e6-a0f6-3856c1e90460"
+			],
+			[
+				"04334c63-62e5-4015-84e8-4844f6fbaa5f"
+			]
+		]
+	}
+}

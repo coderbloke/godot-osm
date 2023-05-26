@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://OverpassTestPanel.gd" id="1_yuhc7"]
+[ext_resource type="Script" path="res://src/overpass/OverpassClient.gd" id="2_wbomy"]
+[ext_resource type="Script" path="res://src/overpass/OverpassQueryBuilder.gd" id="3_bq302"]
+
+[sub_resource type="Resource" id="Resource_gc3kb"]
+script = ExtResource("3_bq302")
+override_output_format = 0
+override_output_csv_field = PackedStringArray()
+override_output_csv_header = 0
+override_output_csv_separator = ""
+default_server_max_query_time = 0
+default_server_max_memory_size = 0
+
+[node name="Overpass" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_yuhc7")
+
+[node name="QueryContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 4
+
+[node name="ResourceLabel" type="Label" parent="QueryContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Resource:"
+
+[node name="ResourceValueLabel" type="RichTextLabel" parent="QueryContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "(null)"
+
+[node name="AutoQueryCheckButton" type="CheckButton" parent="QueryContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Auto"
+
+[node name="QueryButton" type="Button" parent="QueryContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Query"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Overpass QL" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="QLScriptLabel" type="RichTextLabel" parent="TabContainer/Overpass QL"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+fit_content = true
+selection_enabled = true
+
+[node name="URL" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="URLValueLabel" type="RichTextLabel" parent="TabContainer/URL"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 2
+fit_content = true
+selection_enabled = true
+
+[node name="OverpassClient" type="HTTPRequest" parent="."]
+script = ExtResource("2_wbomy")
+query_builder = SubResource("Resource_gc3kb")
+
+[connection signal="toggled" from="QueryContainer/AutoQueryCheckButton" to="." method="_on_auto_query_check_button_toggled"]
+[connection signal="pressed" from="QueryContainer/QueryButton" to="." method="_on_query_button_pressed"]
+[connection signal="query_completed" from="OverpassClient" to="." method="_on_query_completed"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://src/common/search_panel.tscn" id="1_ishii"]
+[ext_resource type="Script" path="res://src/nominatim/NominatimSearchPanel.gd" id="2_rcycb"]
+[ext_resource type="Script" path="res://src/nominatim/NominatimClient.gd" id="3_xhs12"]
+
+[node name="NominatimSearchPanel" type="VBoxContainer"]
+offset_right = 343.0
+offset_bottom = 239.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_rcycb")
+
+[node name="SearchPanel" parent="." instance=ExtResource("1_ishii")]
+layout_mode = 2
+size_flags_vertical = 3
+items_clickable = true
+
+[node name="NominatimClient" type="HTTPRequest" parent="."]
+script = ExtResource("3_xhs12")
+
+[connection signal="more_requested" from="SearchPanel" to="." method="_on_more_requested"]
+[connection signal="result_pressed" from="SearchPanel" to="." method="_on_result_pressed"]
+[connection signal="search_requested" from="SearchPanel" to="." method="_on_search_requested"]
+[connection signal="query_completed" from="NominatimClient" to="." method="_on_query_completed"]
