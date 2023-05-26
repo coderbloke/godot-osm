@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bn8o2mtmb313y"]
+[gd_scene load_steps=41 format=3]
 
 [ext_resource type="Script" path="res://src/OSMDisplay.gd" id="1_1m6da"]
 [ext_resource type="Theme" uid="uid://4gayavc1jms4" path="res://theme.tres" id="1_xkhht"]
@@ -18,8 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://bh04mjbsyxxmc" path="res://res/hourglass.svg" id="11_y0d32"]
 [ext_resource type="Script" path="res://src/nominatim/NominatimQueryParameters.gd" id="15_6bu3n"]
 [ext_resource type="Texture2D" uid="uid://d05eiwryxhtux" path="res://res/stars-g8b91bcb9a_1920.jpg" id="16_4tin0"]
-[ext_resource type="Texture2D" uid="uid://vor063ftvf7c" path="res://_quarantine/osm_world_1024.png" id="17_ungu2"]
-[ext_resource type="Resource" uid="uid://cux2e3wguchgi" path="res://_quarantine/test/osm_data_04.tres" id="19_xkbb2"]
+[ext_resource type="Texture2D" uid="uid://vor063ftvf7c" path="res://res/osm_world_1024.png" id="17_ungu2"]
+[ext_resource type="Resource" path="res://_quarantine/test/osm_data_04.tres" id="19_xkbb2"]
+
 
 [sub_resource type="Resource" id="Resource_3sfqr"]
 script = ExtResource("4_0yr16")

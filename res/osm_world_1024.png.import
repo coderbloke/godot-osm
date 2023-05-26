@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpwpsjturg48l"
-path.s3tc="res://.godot/imported/0_0_0.png-1d20e80312a96d3f807fd2ada9aaf426.s3tc.ctex"
+uid="uid://vor063ftvf7c"
+path.s3tc="res://.godot/imported/osm_world_1024.png-5f5d392e2c98f2b6b5204be5ab797db0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://res/0_0_0.png"
-dest_files=["res://.godot/imported/0_0_0.png-1d20e80312a96d3f807fd2ada9aaf426.s3tc.ctex"]
+source_file="res://res/osm_world_1024.png"
+dest_files=["res://.godot/imported/osm_world_1024.png-5f5d392e2c98f2b6b5204be5ab797db0.s3tc.ctex"]
 
 [params]
 
