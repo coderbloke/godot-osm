@@ -212,7 +212,7 @@ func _draw_gizmo_boundary_highlight() -> Array[LabelRequest]:
 
 	var label_requests: Array[LabelRequest] = []
 		
-	var label_text := "%.7f°, %.7f°x" % [ min_geo.lat, min_geo.lon ]
+	var label_text := "%.7f°, %.7f°" % [ min_geo.lat, min_geo.lon ]
 	var label_request := LabelRequest.new(label_text, gizmo_color)
 	label_request.add_anchor(bottom_left_gui, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, Vector2(0, 1))
 	label_requests.append(label_request)
@@ -341,7 +341,7 @@ func str_rect(rect: Rect2) -> String:
 	return str(rect.position) + "..." + str(rect.end)
 
 func _calc_viewport():
-	var info: DebugInfoSlot # DEBUG
+#	var info: DebugInfoSlot # DEBUG
 	
 	if geo_center.lat < WebMercatorProjection.min_lat:
 		geo_center.lat = WebMercatorProjection.min_lat
