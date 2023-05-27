@@ -22,6 +22,7 @@ class QLScript:
 	var compact: bool = false
 	var indent_string: String = "    "
 	var indent_level: int = 0
+	var statement_prefixes: PackedStringArray = PackedStringArray()
 	var text: String = ""
 	func _init(compact: bool = false):
 		self.compact = compact
@@ -51,10 +52,21 @@ class QLScript:
 			return
 		if not statement.ends_with(";"):
 			statement += ";"
-		append(statement)
+		var prefix = "".join(statement_prefixes)
+		append(prefix + statement)
+	func push_statement_prefix(prefix: String):
+		statement_prefixes.append(prefix)
+	func pop_statement_prefix():
+		statement_prefixes.remove_at(statement_prefixes.size() - 1)
+	func error(message: String):
+		var prior_indent_level = indent_level
+		indent_level = 0
+		append("SCRIPT BUILD ERROR: " + message)
+		indent_level = prior_indent_level
 
 func get_overpass_ql_script(query: OverpassQuery, compact: bool = false) -> String:
 	var script: QLScript = QLScript.new()
+	script.compact = compact
 	script.append_statement(_get_settings_statement(script, query))
 	query._build_script(script)
 	return script.text
