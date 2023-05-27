@@ -1,22 +1,8 @@
 @tool
 class_name OverpassQueryBuilder extends Resource
 
-@export var default_global_bounds: GeoBoundary
-@export var override_global_bounds: GeoBoundary
-
-enum OverrideOutputCSVHeader {
-	NO_OVERRIDE, INCLUDE, EXCLUDE
-}
-
-@export_group("Output format override", "override_output_")
-@export var override_output_format: OverpassQuery.OutputFormat = OverpassQuery.OutputFormat.DEFAULT
-@export var override_output_csv_field: PackedStringArray
-@export var override_output_csv_header: OverrideOutputCSVHeader = OverrideOutputCSVHeader.NO_OVERRIDE
-@export var override_output_csv_separator: String
-
-@export_group("Default server limits", "default_server_max_")
-@export var default_server_max_query_time: int = 0
-@export var default_server_max_memory_size: int = 0
+@export var default_settings: OverpassQuerySettings = OverpassQuerySettings.new()
+@export var override_settings: OverpassQuerySettings
 
 class QLScript:
 	var compact: bool = false
@@ -75,71 +61,66 @@ func _get_bbox(bounds: GeoBoundary):
 	return "%f,%f,%f,%f" % [bounds.from_lat, bounds.from_lon, bounds.to_lat, bounds.to_lon]
 
 func _get_settings_statement(script: QLScript, query: OverpassQuery) -> String:
-	var settings := ""
+	var settings := default_settings if default_settings != null else OverpassQuerySettings.new()
+	settings = settings.overriden_with(query.settings)
+	settings = settings.overriden_with(override_settings)
+	
+	var settings_statement_parts := PackedStringArray()
 	var use_new_lines := true
 
-	var server_max_query_time = default_server_max_query_time
-	if query.server_max_query_time > 0:
-		server_max_query_time = query.server_max_query_time
-	if server_max_query_time > 0:
-		if use_new_lines and settings.length() > 0: settings += "\n"
-		settings += "[timeout:%d]" % server_max_query_time
+	if settings.server_max_query_time > 0:
+		settings_statement_parts.append("[timeout:%d]" % settings.server_max_query_time)
 
-	var server_max_memory_size = default_server_max_memory_size
-	if query.server_max_memory_size > 0:
-		server_max_query_time = query.server_max_memory_size
-	if server_max_memory_size > 0:
-		if use_new_lines and settings.length() > 0: settings += "\n"
-		settings += "[maxsize:%d]" % server_max_memory_size
+	if settings.server_max_memory_size > 0:
+		settings_statement_parts.append("[maxsize:%d]" % settings.server_max_memory_size)
 
-	var output_format = query.output_format
-	if override_output_format != OverpassQuery.OutputFormat.DEFAULT:
-		output_format = override_output_format
-	var output_csv_fields = query.output_csv_fields
-	if override_output_csv_field != null and override_output_csv_field.size() > 0:
-		output_csv_fields = override_output_csv_field
-	var output_csv_header_included = query.output_csv_header_included
-	match override_output_csv_header:
-		OverrideOutputCSVHeader.INCLUDE:
-			output_csv_header_included = true
-		OverrideOutputCSVHeader.EXCLUDE:
-			output_csv_header_included = false
-	var output_csv_separator = query.output_csv_separator
-	if override_output_csv_separator != null and override_output_csv_separator.length() > 0:
-		output_csv_separator = override_output_csv_separator
-	if output_format != OverpassQuery.OutputFormat.DEFAULT:
-		if use_new_lines and settings.length() > 0: settings += "\n"
-		match output_format:
-			OverpassQuery.OutputFormat.XML:
-				settings += "[out:xml]"
-			OverpassQuery.OutputFormat.JSON:
-				settings += "[out:json]"
-			OverpassQuery.OutputFormat.CSV:
-				var csv_format_parameters = ""
-				if output_csv_fields != null and output_csv_fields.size() > 0:
-					csv_format_parameters += script.list_separator().join(output_csv_fields)
-					csv_format_parameters += ";" + ("true" if output_csv_header_included else "false")
-					if output_csv_separator != null and output_csv_separator.length() > 0:
-						csv_format_parameters += ";\"" + output_csv_separator + "\""
-				if csv_format_parameters.length() > 0:
-					if use_new_lines:
-						settings += "[out:csv(\n\t%s\n)]" % csv_format_parameters
-					else:
-						settings += "[out:csv(%s)]" % csv_format_parameters
+	match settings.output_format:
+		OverpassQuerySettings.OutputFormat.XML:
+			settings_statement_parts.append("[out:xml]")
+		OverpassQuerySettings.OutputFormat.JSON:
+			settings_statement_parts.append("[out:json]")
+		OverpassQuerySettings.OutputFormat.CSV:
+			var csv_format_parameters = ""
+			if settings.output_csv_fields != null and settings.output_csv_fields.size() > 0:
+				csv_format_parameters += script.list_separator().join(settings.output_csv_fields)
+				csv_format_parameters += ";" + ("false" if settings.output_csv_header == OverpassQuerySettings.OutputCSVHeader.EXCLUDED else "true")
+				if settings.output_csv_separator != null and settings.output_csv_separator.length() > 0:
+					csv_format_parameters += ";\"" + settings.output_csv_separator + "\""
+			if csv_format_parameters.length() > 0:
+				if use_new_lines:
+					settings_statement_parts.append("[out:csv(\n\t%s\n)]" % csv_format_parameters)
 				else:
-					settings += "[out:csv]"
-			OverpassQuery.OutputFormat.CUSTOM:
-				settings += "[out:custom]"
-			OverpassQuery.OutputFormat.POPUP:
-				settings += "[out:popup]"
+					settings_statement_parts.append("[out:csv(%s)]" % csv_format_parameters)
+			else:
+				settings_statement_parts.append("[out:csv]")
+		OverpassQuerySettings.OutputFormat.CUSTOM:
+			settings_statement_parts.append("[out:custom]")
+		OverpassQuerySettings.OutputFormat.POPUP:
+			settings_statement_parts.append("[out:popup]")
 				
-	var global_bounds = default_global_bounds
-	if query.global_bounds != null:
-		global_bounds = query.global_bounds
-	if override_global_bounds != null:
-		global_bounds = override_global_bounds
-	if global_bounds != null:
-		if use_new_lines and settings.length() > 0: settings += "\n"
-		settings += "[bbox:%s]" % _get_bbox(global_bounds)
+	if settings.global_bounds != null:
+		settings_statement_parts.append("[bbox:%s]" % _get_bbox(settings.global_bounds))
+		
+	match settings.datetime_filter:
+		OverpassQuerySettings.DateFilter.ATTIC_STATE:
+			var datetime_to = settings.datetime_to if settings.datetime_to != null and settings.datetime_to.length() > 0 \
+				else Time.get_datetime_string_from_system()
+			settings_statement_parts.append("[date:\"%s\"]" % datetime_to)
+		OverpassQuerySettings.DateFilter.DIFFERENCES:
+			var datetime_from = settings.datetime_to if settings.datetime_to != null and settings.datetime_to.length() > 0 \
+				else OverpassQuerySettings.default_datetime_from
+			if settings.datetime_to != null and settings.datetime_to.length() > 0:
+				settings_statement_parts.append("[diff:\"%s\"]" % [datetime_from, settings.datetime_to])
+			else:
+				settings_statement_parts.append("[diff:\"%s\"]" % datetime_from)
+		OverpassQuerySettings.DateFilter.AUGMENTED_DIFFERENCES:
+			var datetime_from = settings.datetime_to if settings.datetime_to != null and settings.datetime_to.length() > 0 \
+				else OverpassQuerySettings.default_datetime_from
+			if settings.datetime_to != null and settings.datetime_to.length() > 0:
+				settings_statement_parts.append("[adiff:\"%s\"]" % [datetime_from, settings.datetime_to])
+			else:
+				settings_statement_parts.append("[adiff:\"%s\"]" % datetime_from)
+		
+	var settings_statement = ("\n" if use_new_lines else "").join(settings_statement_parts)
 	
-	return settings if settings.length() > 0 else null
+	return settings_statement if settings_statement_parts.size() > 0 else null
