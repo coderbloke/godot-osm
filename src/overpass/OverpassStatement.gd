@@ -1,10 +1,6 @@
 @tool
 class_name OverpassStatement extends Resource
 
-#@export var input_set: String = ""
-#@export var intersecting_input_sets: PackedStringArray
-#@export var output_set: String = ""
-#
 func _init():
 	push_warning("This class on its does nothing. Use one of its sublasses.")
 
@@ -29,3 +25,8 @@ func _get_loop_variable_prefix(loop_variable: String) -> String:
 	
 func _get_output_set_suffix(output_set: String) -> String:
 	return "->." + output_set if output_set != null and output_set.length() > 0 else ""
+
+func _get_bbox(bounds: GeoBoundary, in_brackets: bool = true):
+	return ("(" if in_brackets else "") \
+		+ "%f,%f,%f,%f" % [bounds.from_lat, bounds.from_lon, bounds.to_lat, bounds.to_lon] \
+		+ (")" if in_brackets else "")
