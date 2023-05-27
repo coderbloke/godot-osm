@@ -1,17 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://6go0gvx3yqpd"]
 
 [ext_resource type="Script" path="res://OverpassTestPanel.gd" id="1_yuhc7"]
 [ext_resource type="Script" path="res://src/overpass/OverpassClient.gd" id="2_wbomy"]
-[ext_resource type="Script" path="res://src/overpass/OverpassQueryBuilder.gd" id="3_bq302"]
-
-[sub_resource type="Resource" id="Resource_gc3kb"]
-script = ExtResource("3_bq302")
-override_output_format = 0
-override_output_csv_field = PackedStringArray()
-override_output_csv_header = 0
-override_output_csv_separator = ""
-default_server_max_query_time = 0
-default_server_max_memory_size = 0
 
 [node name="Overpass" type="VBoxContainer"]
 anchors_preset = 15
@@ -83,8 +73,7 @@ selection_enabled = true
 
 [node name="OverpassClient" type="HTTPRequest" parent="."]
 script = ExtResource("2_wbomy")
-query_builder = SubResource("Resource_gc3kb")
+compact_query = false
 
 [connection signal="toggled" from="QueryContainer/AutoQueryCheckButton" to="." method="_on_auto_query_check_button_toggled"]
 [connection signal="pressed" from="QueryContainer/QueryButton" to="." method="_on_query_button_pressed"]
-[connection signal="query_completed" from="OverpassClient" to="." method="_on_query_completed"]
